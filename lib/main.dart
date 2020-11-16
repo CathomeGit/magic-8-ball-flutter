@@ -15,9 +15,9 @@ class BallPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.green,
         appBar: AppBar(
-          backgroundColor: Colors.blue[900],
+          backgroundColor: Colors.green[900],
           title: Text('Ask Me Anything'),
         ),
         body: Ball(),
@@ -32,6 +32,9 @@ class Ball extends StatefulWidget {
 }
 
 class _BallState extends State<Ball> {
+  final int threshold = 10;
+  int counter = 0;
+  bool reachedLimit = false;
   int ballNumber = 1;
 
   @override
@@ -39,13 +42,29 @@ class _BallState extends State<Ball> {
     return Center(
       child: Container(
         child: FlatButton(
-            onPressed: () {
-              setState(() {
+          onPressed: () {
+            setState(() {
+              if (counter == 0) {
+                reachedLimit = false;
+              }
+              if (counter < threshold) {
                 ballNumber = Random().nextInt(4) + 1;
-                print(ballNumber);
-              });
-            },
-            child: Image.asset('images/ball$ballNumber.png')),
+                counter++;
+              } else {
+                reachedLimit = true;
+                counter = 0;
+              }
+            });
+          },
+          child: !reachedLimit
+              ? Image.asset('images/ball$ballNumber.png')
+              : Text(
+                  'TOO MANY QUESTIONS\nFOR TODAY!',
+                  textAlign: TextAlign.center,
+                  textScaleFactor: 1.5,
+                  style: TextStyle(letterSpacing: 2, color: Colors.blue[50]),
+                ),
+        ),
       ),
     );
   }
