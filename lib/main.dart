@@ -13,15 +13,13 @@ void main() {
 class BallPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.green,
-        appBar: AppBar(
-          backgroundColor: Colors.green[900],
-          title: Text('Ask Me Anything'),
-        ),
-        body: Ball(),
+    return Scaffold(
+      backgroundColor: Colors.green,
+      appBar: AppBar(
+        backgroundColor: Colors.green[900],
+        title: Text('Ask Me Anything'),
       ),
+      body: Ball(),
     );
   }
 }
